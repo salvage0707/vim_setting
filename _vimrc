@@ -84,6 +84,10 @@ if has('mouse')
     endif
 endif
 
+"----------------------------------------------------------
+"挿入モードで'jj' → ESC
+"----------------------------------------------------------
+inoremap <silent> jj <ESC>
 
 "---------------------------------------------------------------
 "ペースト時にインデントをしないように
@@ -126,6 +130,12 @@ Bundle 'itchyny/lightline.vim'
 Bundle 'Yggdroot/indentLine'
 " ワークツリーの表示[
 Bundle 'scrooloose/nerdtree'
+" カラースキーマ
+Bundle 'tomasr/molokai'
+" シンタックスチェック
+Bundle 'scrooloose/syntastic'
+" gcでコメントアウト
+Bundle 'tomtom/tcomment_vim'
 
 filetype plugin indent on     " required!"
 
@@ -141,3 +151,21 @@ set ruler " ステータスラインの右側にカーソルの現在位置を�
 " ctrl + eでワークツリーを表示
 "----------------------------------------------------------
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
+
+"----------------------------------------------------------
+"カラースキーマの設定
+"----------------------------------------------------------
+let g:molokai_original = 1
+let g:rehash256 = 1
+
+"----------------------------------------------------------
+"シンタックスチェック
+"----------------------------------------------------------
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
