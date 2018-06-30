@@ -1,3 +1,5 @@
 vimの設定ファイル
 
-
+vimのプラグインのインストールのやり方
+初回　    vim => :BundleInstall
+2回目から vim => :BUndleInstall!

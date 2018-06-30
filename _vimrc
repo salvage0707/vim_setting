@@ -15,7 +15,9 @@ au BufWrite /private/etc/pw.* set nowritebackup nobackup
 
 let skip_defaults_vim=1
 
+"---------------------------------------------------------------
 " vimの設定
+"---------------------------------------------------------------
 "行番号の表示
 set number
 
@@ -46,4 +48,96 @@ set smartindent
 "タブ幅の設定
 set tabstop=2
 
-"
+"インクリメンタルサーチ、１文字毎に検索を行う
+set incsearch
+
+"検索結果をハイライト
+"set hlsearch
+
+"カーソルラインをハイライト
+set cursorline
+
+"コマンドモードの補完、保存するコマンド数
+set wildmenu
+set history=1000
+
+"---------------------------------------------------------------
+" 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
+"---------------------------------------------------------------
+nnoremap j gj
+nnoremap k gk
+nnoremap <down> gj
+nnoremap <up> gk
+
+
+"---------------------------------------------------------------
+"マウスでカーソル移動などをできるように
+"---------------------------------------------------------------
+if has('mouse')
+    set mouse=a
+    if has('mouse_sgr')
+        set ttymouse=sgr
+    elseif v:version > 703 || v:version is 703 && has('patch632')
+        set ttymouse=sgr
+    else
+        set ttymouse=xterm2
+    endif
+endif
+
+
+"---------------------------------------------------------------
+"ペースト時にインデントをしないように
+"---------------------------------------------------------------
+if &term =~ "xterm"
+    let &t_SI .= "\e[?2004h"
+    let &t_EI .= "\e[?2004l"
+    let &pastetoggle = "\e[201~"
+
+    function XTermPasteBegin(ret)
+        set paste
+        return a:ret
+    endfunction
+
+    inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+endif
+
+"---------------------------------------------------------------
+" 以下プラグインの管理
+"---------------------------------------------------------------
+set nocompatible
+filetype off
+" プラグイン管理(vundle)の場所を指定
+set rtp+=~/vim_setting/vimfiles/vundle.git/    
+call vundle#rc()
+
+"---------------------------------------------------------------
+"追加のプラグインを記述
+"--------------------------------------------------------------
+Bundle 'Shougo/neocomplcache'        
+Bundle 'Shougo/unite.vim'
+Bundle 'thinca/vim-ref'
+Bundle 'thinca/vim-quickrun'
+
+" gitをvimで使えるように変更
+Bundle 'tpope/vim-fugitive'
+" ステータスラインの設定
+Bundle 'itchyny/lightline.vim'
+" インデントの可視化
+Bundle 'Yggdroot/indentLine'
+" ワークツリーの表示[
+Bundle 'scrooloose/nerdtree'
+
+filetype plugin indent on     " required!"
+
+"----------------------------------------------------------
+" ステータスラインの設定 
+"----------------------------------------------------------
+set laststatus=2 " ステータスラインを常に表示
+set showmode " 現在のモードを表示
+set showcmd " 打ったコマンドをステータスラインの下に表示
+set ruler " ステータスラインの右側にカーソルの現在位置を表示する
+
+"----------------------------------------------------------
+" ctrl + eでワークツリーを表示
+"----------------------------------------------------------
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
