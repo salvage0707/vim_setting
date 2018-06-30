@@ -12,10 +12,12 @@ http://holypp.hatenablog.com/entry/20110515/1305443997
 "--------------------------------------------------
 vimのgitの使い方
 "--------------------------------------------------
-:Gstatus => git statusが画面に表示
-:Gdiff => 現在開いているファイルに対してvimdiffを表示 
-:Gedit <リビジョン>:<ファイル名>  =>  別のブランチの特定ファイルを編集する
-:Gwrite <path> => git add をする(pathを指定しない場合は現在のファイルをadd)
-:Gcommit => 現ファイルをcommitする
-:Glog <args> => git logを確認する
-
+:Gstatus 													=> git statusが画面に表示
+:Gdiff 														=> 現在開いているファイルに対してvimdiffを表示 
+:Gedit <リビジョン>:<ファイル名>  => 別のブランチの特定ファイルを編集する
+:Gwrite <path> 										=> git add をする(pathを指定しない場合は現在のファイルをadd)
+:Gcommit -m "message" 						=> 現ファイルをcommitする
+:Glog <args> 											=> git logを確認する
+:Gpush 														=> git push をする
+:Gblame														=> git blame をする
+:Gread 														=> 開いているファイルを直前のコミットの状態でみる
