@@ -40,7 +40,7 @@ set showmatch
 set smartindent
 
 "シフト移動幅
-"set shiftwidth=4
+set shiftwidth=2
 
 "行頭の余白内でTabを打ち込むと、'shiftwidth'の数だけインデントする
 set smartindent
@@ -79,6 +79,15 @@ set hlsearch
 " ESC連打でハイライト解除
 nmap <Esc><Esc> :nohlsearch<CR><Esc>
 
+" バッファを保存なしで変更可能に
+set hidden
+
+" swpファイルを作らない"
+set noswapfile
+
+"バックアップファイルを作らない
+set nobackup
+
 "---------------------------------------------------------------
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 "---------------------------------------------------------------
@@ -106,6 +115,25 @@ endif
 "挿入モードで'jj' → ESC
 "----------------------------------------------------------
 inoremap <silent> jj <ESC>
+inoremap <silent> pe<TAB> <%=  %><Left><Left><Left>
+inoremap <silent> er<TAB> <%  %><Left><Left><Left>
+
+"===========================================
+"キーマッピング
+"===========================================
+"インサートモードでも移動
+inoremap <C-j>  <down>
+inoremap <C-k>  <up>
+inoremap <C-h>  <left>
+inoremap <C-l>  <right>
+
+"括弧の補完
+inoremap { {}<Left>
+inoremap {<Enter> {}<Left><CR><ESC><S-o>
+inoremap ( ()<ESC>i
+inoremap (<Enter> ()<Left><CR><ESC><S-o>
+inoremap ' ''<LEFT>
+inoremap " ""<LEFT>
 
 "---------------------------------------------------------------
 "ペースト時にインデントをしないように
@@ -164,7 +192,11 @@ Bundle 'szw/vim-tags'
 Bundle 'Shougo/neocomplete.vim'
 Bundle 'marcus/rsense'
 Bundle 'supermomonga/neocomplete-rsense.vim'
+" html補完
+Bundle 'mattn/emmet-vim'
 
+"rails のプラグイン
+Bundle 'tpope/vim-rails'
 
 filetype plugin indent on     " required!"
 
@@ -314,3 +346,4 @@ let g:neocomplete#force_omni_input_patterns.ruby = '[^.*\t]\.\w*\|\h\w*::'
 " active_filetypesに、保存時にsyntasticを走らせるファイルタイプを指定する
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': ['ruby'] }
 let g:syntastic_ruby_checkers = ['rubocop']
+
